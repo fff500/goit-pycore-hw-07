@@ -4,6 +4,7 @@ from add_birthday import add_birthday
 from add_contact import add_contact
 from change_contact import change_contact
 from get_phone import get_phone
+from show_birthday import show_birthday
 
 def parse_input(user_input):
     cmd, *args = user_input.split()
@@ -32,6 +33,8 @@ def main():
             print(get_phone(args, contacts))
         elif command == "add-birthday":
             print(add_birthday(args, contacts))
+        elif command == "show-birthday":
+            print(show_birthday(args, contacts))
         elif command == "all":
             print(contacts)
         else:

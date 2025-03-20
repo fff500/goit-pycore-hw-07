@@ -1,4 +1,4 @@
-from classes import AddressBook, Record
+from classes import AddressBook
 
 def input_error(func):
     def inner(*args, **kwargs):
