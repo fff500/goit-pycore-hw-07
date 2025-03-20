@@ -6,12 +6,12 @@ def input_error(func):
             if len(args[0]) != 3:
                 raise ValueError
             if not args[1].find(args[0][0]):
-                raise KeyError
+                raise KeyError("Such contact doesn't exist.")
             return func(*args, **kwargs)
         except KeyError:
-            return "Such a contact doesn't exist."
+            return "Such contact or phone doesn't exist."
         except ValueError:
-            return "Give me name, phone to change and new phone, please."
+            return "Give me a name, phone to change and new phone, please."
 
     return inner
 

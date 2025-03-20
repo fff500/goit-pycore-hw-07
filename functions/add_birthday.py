@@ -8,10 +8,10 @@ def input_error(func):
             if not args[1].find(args[0][0]):
                 raise KeyError
             return func(*args, **kwargs)
+        except ValueError:
+            return "Give me a name and birthday, please."
         except KeyError:
             return "Such a contact doesn't exist."
-        except ValueError:
-            return "Give me name and birthday, please."
 
     return inner
 

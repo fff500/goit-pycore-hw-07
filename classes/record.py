@@ -28,6 +28,9 @@ class Record:
         self.phones = filter(lambda x: x.value != phone, self.phones)
 
     def edit_phone(self, phone, new_phone):
+        existing_phone = find_element(self.phones, lambda x: x.value == phone)
+        if not existing_phone:
+            raise KeyError
         self.phones = list(map(lambda x: Phone(new_phone) if x.value == phone else x, self.phones))
 
     def find_phone(self, phone):

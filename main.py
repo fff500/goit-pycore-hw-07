@@ -13,7 +13,9 @@ def parse_input(user_input):
 
 def main():
     contacts = AddressBook()
+
     print("Welcome to the assistant bot!")
+
     while True:
         user_input = input("Enter a command: ")
         command, *args = parse_input(user_input)

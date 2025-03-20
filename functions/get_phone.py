@@ -15,6 +15,8 @@ def input_error(func):
 def get_phone(args, book: AddressBook):
     name, *_ = args
     record = book.find(name)
+
     if not record:
         return "Such a contact doesn't exist."
-    return book.find(name).phones
+
+    return record.phones

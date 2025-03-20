@@ -7,7 +7,7 @@ def input_error(func):
                 raise ValueError
             return func(*args, **kwargs)
         except ValueError:
-            return "Give me name, please."
+            return "Give me a name, please."
 
     return inner
 
@@ -15,6 +15,13 @@ def input_error(func):
 def show_birthday(args, book: AddressBook):
     name, *_ = args
     record = book.find(name)
+
     if not record:
-        return "Such a contact doesn't exist."
-    return book.find(name).birthday
+        return "Such contact doesn't exist."
+
+    birthday = book.find(name).birthday
+
+    if not birthday:
+        return "This contact's birthday isn't indicated."
+
+    return birthday

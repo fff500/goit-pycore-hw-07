@@ -17,10 +17,12 @@ def add_contact(args, book: AddressBook):
     name, phone, *_ = args
     message = "Contact updated."
     record = book.find(name)
+
     if not record:
         record = Record(name)
         book.add_record(record)
         message = "Contact added."
+
     if phone:
         record.add_phone(phone)
     return message
