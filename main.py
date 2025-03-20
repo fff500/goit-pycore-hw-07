@@ -1,5 +1,6 @@
 from classes import AddressBook
 
+from add_birthday import add_birthday
 from add_contact import add_contact
 from change_contact import change_contact
 from get_phone import get_phone
@@ -29,6 +30,8 @@ def main():
             print(change_contact(args, contacts))
         elif command == "phone":
             print(get_phone(args, contacts))
+        elif command == "add-birthday":
+            print(add_birthday(args, contacts))
         elif command == "all":
             print(contacts)
         else:

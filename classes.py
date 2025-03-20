@@ -35,10 +35,10 @@ class Birthday(Field):
         super().__init__(date_obj)
 
 class Record:
-    def __init__(self, name, phones=[]):
+    def __init__(self, name, phones=[], birthday = None):
         self.name = Name(name)
         self.phones = phones
-        self.birthday = None
+        self.birthday = birthday
 
     def add_birthday(self, birthdate):
         self.birthday = Birthday(birthdate)
@@ -59,7 +59,7 @@ class Record:
         return find_element(self.phones, lambda x: x.value == phone)
     
     def __repr__(self):
-        return f"Record({self.name.value}, {self.phones})"
+        return f"Record({self.name.value}, {self.phones}, {self.birthday})"
 
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
