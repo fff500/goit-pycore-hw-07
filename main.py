@@ -1,3 +1,4 @@
+from birthdays import birthdays
 from classes import AddressBook
 
 from add_birthday import add_birthday
@@ -18,8 +19,6 @@ def main():
         user_input = input("Enter a command: ")
         command, *args = parse_input(user_input)
 
-        print(command, args)
-
         if command in ["close", "exit"]:
             print("Good bye!")
             break
@@ -35,6 +34,8 @@ def main():
             print(add_birthday(args, contacts))
         elif command == "show-birthday":
             print(show_birthday(args, contacts))
+        elif command == "birthdays":
+            print(birthdays(contacts))
         elif command == "all":
             print(contacts)
         else:

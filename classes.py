@@ -43,6 +43,12 @@ class Record:
     def add_birthday(self, birthdate):
         self.birthday = Birthday(birthdate)
 
+    def get_name(self):
+        return self.name.value
+
+    def get_birthday(self):
+        return self.birthday.value if self.birthday else None
+
     def add_phone(self, phone):
         if not self.find_phone(phone):
             self.phones.append(Phone(phone))
@@ -79,23 +85,23 @@ class AddressBook(UserDict):
         today = date.today().timetuple().tm_yday
         greetings = []
 
-        for user in self.data:
-            b_day_date = user['birthday']
-            b_day_number = b_day_date.timetuple().tm_yday
-            b_day_month = b_day_date.month
-            b_day_day = b_day_date.day
-            b_day_week_day = datetime.strptime( \
-                    str(cur_year) + "." + str(b_day_month) + "." + str(b_day_day), "%Y.%m.%d" \
-                ).weekday()
+        for user in self.data.values():
+            b_day_date = user.get_birthday()
+            if b_day_date:
+                b_day_number = b_day_date.timetuple().tm_yday
+                b_day_month = b_day_date.month
+                b_day_day = b_day_date.day
+                b_day_week_day = datetime.strptime( \
+                        str(cur_year) + "." + str(b_day_month) + "." + str(b_day_day), "%Y.%m.%d" \
+                    ).weekday()
 
-            if today <= b_day_number <= today + 7:
-                if b_day_week_day == 5:
-                    b_day_number += 2
-                if b_day_week_day == 6:
-                    b_day_number += 1
-            
-            congrats_date = datetime.strptime(str(cur_year) + "." + str(b_day_number), "%Y.%j").strftime("%Y.%m.%d")
-            greetings.append({"name": user['name'], "congratulation_date": congrats_date})
+                if today <= b_day_number <= today + 7:
+                    if b_day_week_day == 5:
+                        b_day_number += 2
+                    if b_day_week_day == 6:
+                        b_day_number += 1
+                
+                congrats_date = datetime.strptime(str(cur_year) + "." + str(b_day_number), "%Y.%j").strftime("%Y.%m.%d")
+                greetings.append({"name": user.get_name(), "congratulation_date": congrats_date})
 
-        print(greetings)
         return greetings
