@@ -22,6 +22,9 @@ class Phone(Field):
             raise TypeError("Pnone number should have only 10 digits")
         super().__init__(value)
 
+    def __repr__(self):
+        return f"Phone({self.value})"
+
 class Birthday(Field):
     def __init__(self, value):
         try:
@@ -32,9 +35,9 @@ class Birthday(Field):
         super().__init__(date_obj)
 
 class Record:
-    def __init__(self, name):
+    def __init__(self, name, phones=[]):
         self.name = Name(name)
-        self.phones = []
+        self.phones = phones
         self.birthday = None
 
     def add_birthday(self, birthdate):
@@ -54,6 +57,9 @@ class Record:
 
     def find_phone(self, phone):
         return find_element(self.phones, lambda x: x.value == phone)
+    
+    def __repr__(self):
+        return f"Record({self.name.value}, {self.phones})"
 
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"

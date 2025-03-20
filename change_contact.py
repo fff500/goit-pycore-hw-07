@@ -1,20 +1,22 @@
+from classes import AddressBook
+
 def input_error(func):
     def inner(*args, **kwargs):
         try:
-            if len(args[0]) != 2:
+            if len(args[0]) != 3:
                 raise ValueError
-            if not args[0][0] in args[1]:
+            if not args[1].find(args[0][0]):
                 raise KeyError
             return func(*args, **kwargs)
         except KeyError:
             return "Such a contact doesn't exist."
         except ValueError:
-            return "Give me name and phone, please."
+            return "Give me name, phone to change and new phone, please."
 
     return inner
 
 @input_error
-def change_contact(args, contacts):
-    name, phone = args
-    contacts[name] = phone
+def change_contact(args, book: AddressBook):
+    name, existing_phone, new_phone, *_ = args
+    book.find(name).edit_phone(existing_phone, new_phone)
     return "Contact changed."
