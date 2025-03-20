@@ -1,6 +1,8 @@
 from collections import UserDict
 from datetime import date, datetime
 
+from utils import find_element
+
 class Field:
     def __init__(self, value):
         self.value = value
@@ -39,7 +41,10 @@ class Record:
         self.birthday = Birthday(birthdate)
 
     def add_phone(self, phone):
-        self.phones.append(Phone(phone))
+        if not self.find_phone(phone):
+            self.phones.append(Phone(phone))
+        else:
+            raise KeyError("Phone already exists.")
 
     def delete_phone(self, phone):
         self.phones = filter(lambda x: x.value != phone, self.phones)
@@ -48,7 +53,7 @@ class Record:
         self.phones = list(map(lambda x: Phone(new_phone) if x.value == phone else x, self.phones))
 
     def find_phone(self, phone):
-        return list(filter(lambda x: x.value == phone, self.phones))
+        return find_element(self.phones, lambda x: x.value == phone)
 
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
@@ -58,7 +63,7 @@ class AddressBook(UserDict):
         self.data[record.name.value] = record
 
     def find(self, name):
-        return self.data[name]
+        return self.data[name] if name in self.data.keys() else None
     
     def delete(self, name):
         self.data.pop(name)

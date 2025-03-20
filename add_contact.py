@@ -6,15 +6,20 @@ def input_error(func):
             return func(*args, **kwargs)
         except ValueError:
             return "Give me name and phone, please."
+        except KeyError:
+            return "Phone already exists."
 
     return inner
 
 @input_error
 def add_contact(args, book: AddressBook):
-    print(args)
-    name, phone = args
-    record = Record(name)
-    record.add_phone(phone)
-    message = "Contact added."
-    book.add_record(record)
+    name, phone, *_ = args
+    message = "Contact updated."
+    record = book.find(name)
+    if not record:
+        record = Record(name)
+        book.add_record(record)
+        message = "Contact added."
+    if phone:
+        record.add_phone(phone)
     return message
