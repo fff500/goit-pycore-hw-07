@@ -1,11 +1,10 @@
-from birthdays import birthdays
-from classes import AddressBook
-
-from add_birthday import add_birthday
-from add_contact import add_contact
-from change_contact import change_contact
-from get_phone import get_phone
-from show_birthday import show_birthday
+from classes.address_book import AddressBook
+from functions.add_birthday import add_birthday
+from functions.add_contact import add_contact
+from functions.birthdays import birthdays
+from functions.change_contact import change_contact
+from functions.get_phone import get_phone
+from functions.show_birthday import show_birthday
 
 def parse_input(user_input):
     cmd, *args = user_input.split()
